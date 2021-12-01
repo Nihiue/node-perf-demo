@@ -44,8 +44,12 @@ module.exports = {
   asyncTest
 };
 
-switch(process.argv[2]) {
-  case 'json': jsonClone(); break;
-  case 'cache': cacheClone(); break;
-  case 'async': asyncTest(); break;
+if (process.mainModule && process.mainModule.filename === __filename) {
+  switch(process.argv[2]) {
+    case 'json': jsonClone(); break;
+    case 'async': asyncTest(); break;
+    default:
+      cacheClone();
+  }
 }
+
