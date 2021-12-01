@@ -2,11 +2,17 @@
 
 ## Inspector
 
+### Dev Tools
+
 https://nodejs.org/en/docs/guides/debugging-getting-started/
 
 ```bash
 $ node --inspect-brk src/app.js cache
 ```
+
+### API
+
+https://nodejs.org/docs/latest-v14.x/api/inspector.html
 
 ```bash
 $ node src/inspector.js
