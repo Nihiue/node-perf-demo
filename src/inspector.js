@@ -1,21 +1,23 @@
 const inspector = require('inspector');
 const fs = require('fs');
 const path = require('path');
-const { cacheClone, jsonClone } = require('./app.js');
-const session = new inspector.Session();
-session.connect();
+const { cacheClone, jsonClone, asyncTest, blockTest } = require('./app.js');
+
+function runTest() {
+  cacheClone();
+  // jsonClone();
+  // blockTest();
+}
 
 const profileId = Date.now();
-
 const heapFd = fs.openSync(path.join(__dirname, `../output/profile.${profileId}.heapsnapshot`), 'w');
+
+const session = new inspector.Session();
+session.connect();
 
 session.on('HeapProfiler.addHeapSnapshotChunk', (m) => {
   fs.writeSync(heapFd, m.params.chunk);
 });
-
-function runTest() {
-  jsonClone();
-}
 
 session.post('Profiler.enable', () => {
   session.post('Profiler.start', () => {

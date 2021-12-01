@@ -1,6 +1,8 @@
 
 const data = require('../data/output.json');
 const NodeCache = require( "node-cache" );
+const { spawnSync } = require('child_process');
+const axios = require('axios');
 
 function cacheClone() {
   const myCache = new NodeCache({
@@ -35,19 +37,29 @@ function sleep(ms = 300) {
 }
 
 async function asyncTest() {
-  await sleep(1000);
+  await Promise.all([
+    axios.get('https://www.baidu.com/'),
+    sleep(1000),
+    sleep(1500)
+  ]);
+}
+
+function blockTest() {
+  spawnSync('sleep', ['5']);
 }
 
 module.exports = {
   jsonClone,
   cacheClone,
-  asyncTest
+  asyncTest,
+  blockTest
 };
 
 if (process.mainModule && process.mainModule.filename === __filename) {
   switch(process.argv[2]) {
     case 'json': jsonClone(); break;
     case 'async': asyncTest(); break;
+    case 'block': blockTest(); break;
     default:
       cacheClone();
   }
