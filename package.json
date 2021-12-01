@@ -1,0 +1,12 @@
+{
+  "name": "node-perf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-cache": "^5.1.2"
+  }
+}
