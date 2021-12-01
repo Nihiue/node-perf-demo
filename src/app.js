@@ -2,7 +2,7 @@
 const data = require('../data/output.json');
 const NodeCache = require( "node-cache" );
 
-module.exports.cacheClone = function cacheClone() {
+function cacheClone() {
   const myCache = new NodeCache({
     useClones: true
   });
@@ -15,7 +15,7 @@ module.exports.cacheClone = function cacheClone() {
   }
 }
 
-module.exports.jsonClone = function jsonClone() {
+function jsonClone() {
   const myCache = new NodeCache({
     useClones: false
   });
@@ -34,6 +34,18 @@ function sleep(ms = 300) {
   })
 }
 
-module.exports.asyncTest = async function asyncTest() {
+async function asyncTest() {
   await sleep(1000);
+}
+
+module.exports = {
+  jsonClone,
+  cacheClone,
+  asyncTest
+};
+
+switch(process.argv[2]) {
+  case 'json': jsonClone(); break;
+  case 'cache': cacheClone(); break;
+  case 'async': asyncTest(); break;
 }
