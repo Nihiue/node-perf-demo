@@ -1,5 +1,5 @@
+const data = require('../data/random.json');
 
-const data = require('../data/output.json');
 const NodeCache = require( "node-cache" );
 const { spawnSync } = require('child_process');
 const axios = require('axios');
@@ -9,7 +9,7 @@ function cacheClone() {
     useClones: true
   });
   myCache.set('data', data);
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 50; i += 1) {
     const item = myCache.get('data');
     if (item.length === 0) {
       return false;
@@ -22,7 +22,7 @@ function jsonClone() {
     useClones: false
   });
   myCache.set('data', JSON.stringify(data));
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 50; i += 1) {
     const item = JSON.parse(myCache.get('data'));
     if (item.length === 0) {
       return false;
